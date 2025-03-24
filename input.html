@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Input Produk</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Formulir Input Data Produk</h2>
+        
+        <form id="produkForm" action="input.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <div class="mb-3">
+                <label for="nama_produk" class="form-label">Nama Produk</label>
+                <input type="text" class="form-control" id="nama_produk" name="nama_produk">
+                <small id="nama_produk_err" class="form-text text-danger"></small>
+            </div>
+        
+            <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi Produk</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
+                <small id="deskripsi_err" class="form-text text-danger"></small>
+            </div>
+        
+            <div class="mb-3">
+                <label for="harga" class="form-label">Harga Produk</label>
+                <input type="number" class="form-control" id="harga" name="harga">
+                <small id="harga_err" class="form-text text-danger"></small>
+            </div>
+        
+            <div class="mb-3">
+                <label for="stok" class="form-label">Jumlah Stok</label>
+                <input type="number" class="form-control" id="stok" name="stok">
+                <small id="stok_err" class="form-text text-danger"></small>
+            </div>
+        
+            <div class="mb-3">
+                <label for="gambar" class="form-label">Gambar Produk</label>
+                <input type="file" class="form-control" id="gambar" name="gambar">
+                <small id="gambar_err" class="form-text text-danger"></small>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Kirim Data</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript untuk validasi form -->
+    <script>
+        // Validasi Formulir menggunakan JavaScript
+        function validateForm() {
+            // Clear previous errors
+            let isValid = true;
+            document.getElementById('nama_produk_err').textContent = '';
+            document.getElementById('deskripsi_err').textContent = '';
+            document.getElementById('harga_err').textContent = '';
+            document.getElementById('stok_err').textContent = '';
+            document.getElementById('gambar_err').textContent = '';
+
+            // Ambil nilai input
+            const namaProduk = document.getElementById("nama_produk").value;
+            const deskripsi = document.getElementById("deskripsi").value;
+            const harga = document.getElementById("harga").value;
+            const stok = document.getElementById("stok").value;
+            const gambar = document.getElementById("gambar").files.length;
+
+            // Validasi Nama Produk
+            if (namaProduk.trim() === "") {
+                document.getElementById('nama_produk_err').textContent = "Nama produk harus diisi.";
+                isValid = false;
+            }
+
+            // Validasi Deskripsi
+            if (deskripsi.trim() === "") {
+                document.getElementById('deskripsi_err').textContent = "Deskripsi produk harus diisi.";
+                isValid = false;
+            }
+
+            // Validasi Harga
+            if (harga <= 0 || isNaN(harga)) {
+                document.getElementById('harga_err').textContent = "Harga produk harus lebih besar dari nol dan berupa angka.";
+                isValid = false;
+            }
+
+            // Validasi Stok
+            if (stok < 0 || isNaN(stok)) {
+                document.getElementById('stok_err').textContent = "Jumlah stok harus berupa angka dan lebih besar dari nol.";
+                isValid = false;
+            }
+
+            // Validasi Gambar
+            if (gambar === 0) {
+                document.getElementById('gambar_err').textContent = "Gambar produk harus diunggah.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
